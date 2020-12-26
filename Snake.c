@@ -1,8 +1,12 @@
 #include <stdio.h>
+#include <windows.h>
+#include <stdlib.h>
+#include <conio.h>
+#include <time.h>
 
 #define N 20
 #define M 40
-int i, j, Field[N][M],x,y,Gy,Head,Tail;
+int i,j,Field[N][M],x,y,Gy,Head,Tail,Game,Frog,a,b;
 
 void snakeInitialization () {
     for (i=0;i<N;i++) {
@@ -16,6 +20,8 @@ void snakeInitialization () {
     Head=5;
     Tail=1;
     Gy=y;
+    Game=0;
+    Frog=0;
 
     for(i=0; i<Head; i++) {
         Gy++;
@@ -45,6 +51,7 @@ void print() {
             if(Field[i][j] == 0) printf(" ");
             if(Field[i][j] > 0 && Field[i][j]!= Head) printf("%c", 176);
             if(Field[i][j] == Head) printf("%c", 178);
+            if(Field[i][j] == -1) printf("%c", 15);
             if(j==M-1) printf("%c\n", 186);
             }
         }
@@ -61,8 +68,32 @@ void print() {
     }
 }
 
+void ResetScreenPosition() {
+    HANDLE hOut;
+    COORD Position;
+    hOut = GetStdHandle(STD_OUTPUT_HANDLE);
+    Position.X = 0;
+    Position.Y = 0;
+    SetConsoleCursorPosition(hOut, Position);
+}
+
+Random() {
+    srand(time(0));
+    a = 1+ rand() % 18;
+    b = 1+ rand() % 38;
+
+    if (Frog == 0 && Field[a][b]==0) {
+        Field[a][b] = -1;
+        Frog = 1;
+    }
+}
+
 void main()
 {
     snakeInitialization();
-    print();
+    while(Game==0) {
+        print();
+        ResetScreenPosition();
+        Random();
+    }
 }
