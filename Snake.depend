@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1608995303 source:c:\users\rivva\documents\166\snake\snake.c
+	<stdio.h>
+	<windows.h>
+	<stdlib.h>
+	<conio.h>
+
